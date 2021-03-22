@@ -1,0 +1,4 @@
+com/example/event/UpdatedEvent.class
+com/example/event/ConfirmedEvent.class
+com/example/event/FailEvent.class
+com/example/event/CancelledEvent.class

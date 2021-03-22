@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: instruction-${server.port}
+  datasource:
+    url: jdbc:h2:./data/database;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    generate-ddl: true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: info
+    com:
+      example: debug
+
+axon:
+
+  axonserver:
+
+
+    servers: localhost:8124,localhost:8125
+    enabled: false
+
+  distributed:
+    enabled: true
+    spring-cloud:
+      fallback-to-http-get: true
+      fallback-url: /message-routing-information
+      mode: rest
+  serializer:
+    general: xstream
+    messages: xstream
+    events: xstream
+
+
+
+
+## Required to enabled the DistributedCommandBus
+#  axon.distributed.enabled=true
+#  # Defines the CapabilityDiscoveryMode used. Defaults to REST
+#  axon.distributed.spring-cloud.mode=rest
+#  # Defines the endpoint used to retrieve member capabilities from. Defaults to "/member-capabilities"
+#  axon.distributed.spring-cloud.rest-mode-url="/my-custom-endpoint"
+#  # Defines whether the CapabilityDiscoveryMode should be decorated to ignore faulty ServiceInstances
+#  axon.distributed.spring-cloud.enable-ignore-listing=true
+#  # Defines whether the CapabilityDiscoveryMode should be decorated to accept all types of commands
+#  axon.distributed.spring-cloud.enable-accept-all-commands=true
