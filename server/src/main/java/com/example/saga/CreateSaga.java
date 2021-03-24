@@ -50,6 +50,7 @@ public class CreateSaga {
 
     @SagaEventHandler(associationProperty = "id")
     public void handler(CmplSuccEvt evt) {
+        log.info("saga success");
         ConfirmCmd cmd = new ConfirmCmd();
         cmd.setId(evt.getId());
         commandGateway.send(cmd);
