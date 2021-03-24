@@ -11,9 +11,12 @@ import org.axonframework.config.EventProcessingConfigurer;
 import org.axonframework.eventhandling.TrackingEventProcessorConfiguration;
 import org.axonframework.eventsourcing.EventSourcingRepository;
 import org.axonframework.eventsourcing.eventstore.EventStore;
+import org.axonframework.extensions.springcloud.commandhandling.SpringCloudCommandRouter;
 import org.axonframework.extensions.springcloud.commandhandling.SpringCloudHttpBackupCommandRouter;
+import org.axonframework.extensions.springcloud.commandhandling.mode.CapabilityDiscoveryMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.serviceregistry.Registration;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +25,8 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.function.Predicate;
 
 /**
  * @Author dongkw
@@ -76,58 +81,33 @@ public class AxonConfig {
                 .connector(commandBusConnector)
                 .build();
     }
-
-    @Bean
-    public RestTemplate restTemplate(ClientHttpRequestFactory factory) {
-        return new RestTemplate(factory);
-    }
-
-    @Bean
-    public ClientHttpRequestFactory simpleClientHttpRequestFactory() {
-        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        factory.setReadTimeout(5000);//ms
-        factory.setConnectTimeout(15000);//ms
-        return factory;
-    }
-    // The Event store `EmbeddedEventStore` delegates actual storage and retrieval of events to an `EventStorageEngine`.
-//    @Bean
-//    public EmbeddedEventStore eventStore(EventStorageEngine storageEngine, AxonConfiguration configuration) {
-//        return EmbeddedEventStore.builder()
-//                .storageEngine(storageEngine)
-//                .messageMonitor(configuration.messageMonitor(EventStore.class, "eventStore"))
-//                .build();
-//    }
-
-    // The `MongoEventStorageEngine` stores each event in a separate MongoDB document
-//    @Bean
-//    public EventStorageEngine storageEngine(MongoTemplate template) {
-//        return new MongoEventStorageEngine(template);
-//    }
-//    EventStorageEngine
 ////
 //    @Bean
-//    public EventStorageEngine storageEngine(MongoClient client) {
-//        MongoTemplate template=new DefaultMongoTemplate(client);
-//        return new MongoEventStorageEngine(template);
-//    }
-
-//    @Bean
-//    @Qualifier("localSegment")
-//    public CommandBus localSegment() {
-//        return SimpleCommandBus.builder().build();
+//    public RestTemplate restTemplate(ClientHttpRequestFactory factory) {
+//        return new RestTemplate(factory);
 //    }
 //
-//    //
 //    @Bean
-//    public CommandBusConnector springHttpCommandBusConnector(@Qualifier("localSegment") CommandBus localSegment,
-//                                                             RestOperations restOperations,
-//                                                             Serializer serializer) {
-//        return SpringHttpCommandBusConnector.builder()
-//                .localCommandBus(localSegment)
-//                .restOperations(restOperations)
-//                .serializer(serializer)
-//                .executor(Executors.newSingleThreadExecutor())
-//                .build();
+//    public ClientHttpRequestFactory simpleClientHttpRequestFactory() {
+//        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+//        factory.setReadTimeout(5000);//ms
+//        factory.setConnectTimeout(15000);//ms
+//        return factory;
+//    }
+//    @Bean
+//    public CommandRouter springCloudCommandRouter(DiscoveryClient discoveryClient, Registration localServiceInstance,
+//                                                  CapabilityDiscoveryMode capabilityDiscoveryMode) {
+//        return SpringCloudCommandRouter.builder().discoveryClient(discoveryClient)
+//                .routingStrategy(new AnnotationRoutingStrategy()).localServiceInstance(localServiceInstance)
+//                .capabilityDiscoveryMode(capabilityDiscoveryMode)
+//                .serviceInstanceFilter(new Predicate<ServiceInstance>() {
+//
+//                    @Override
+//                    public boolean test(ServiceInstance t) {
+//                        return !t.getMetadata().isEmpty() && null != t.getMetadata().get("instance-type")
+//                                && t.getMetadata().get("instance-type").equalsIgnoreCase("eda");
+//                    }
+//                }).build();
 //    }
 
 }

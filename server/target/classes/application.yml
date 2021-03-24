@@ -2,12 +2,17 @@ spring:
   application:
     name: instruction-${server.port}
   datasource:
-    url: jdbc:h2:./data/database;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE
-
+    url: jdbc:mysql://localhost:3306/axon?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: mysql
+    driver-class-name: com.mysql.jdbc.Driver
+  #④ 声明jpa相关配置，必须使用MySQL5InnoDBDialect声明数据库的存储引擎为InnoDB
   jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+    #show-sql: true
     hibernate:
       ddl-auto: update
-
     generate-ddl: true
 
 server:
@@ -20,11 +25,7 @@ logging:
       example: debug
 
 axon:
-
   axonserver:
-
-
-    servers: localhost:8124,localhost:8125
     enabled: false
 
   distributed:
@@ -37,7 +38,25 @@ axon:
     general: xstream
     messages: xstream
     events: xstream
-
+#axon:
+#  axonserver:
+#    enabled: false
+#  distributed:
+#    enabled: true
+#    spring-cloud:
+#      mode: rest
+#      enable-ignore-listing: true
+#      enable-accept-all-commands: true
+##  serializer:
+##    general: xstream
+##    messages: xstream
+##    events: xstream
+#eureka:
+#  instance:
+#    metadata-map:
+#      instance-type: eda
+#    lease-renewal-interval-in-seconds: 10
+#    lease-expiration-duration-in-seconds: 30
 
 
 
