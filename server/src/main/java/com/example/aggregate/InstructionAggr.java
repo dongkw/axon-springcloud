@@ -17,6 +17,7 @@ import com.example.aggregate.bean.status.Status;
 import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
@@ -41,7 +42,7 @@ public class InstructionAggr {
         AggregateLifecycle.apply(event);
     }
 
-    @EventHandler
+    @EventSourcingHandler
     public void on(CreateEvent event) {
         this.id = event.getId();
         this.data = event.getData();
@@ -55,7 +56,7 @@ public class InstructionAggr {
         AggregateLifecycle.apply(event);
     }
 
-    @EventHandler
+    @EventSourcingHandler
     public void on(CancelledEvent event) {
         this.data = event.getData();
     }
@@ -67,7 +68,7 @@ public class InstructionAggr {
         AggregateLifecycle.apply(event);
     }
 
-    @EventHandler
+    @EventSourcingHandler
     public void on(FailEvent event) {
 
     }
@@ -80,7 +81,7 @@ public class InstructionAggr {
         AggregateLifecycle.apply(event);
     }
 
-    @EventHandler
+    @EventSourcingHandler
     public void on(ConfirmEvent event) {
 
     }
