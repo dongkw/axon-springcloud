@@ -8,8 +8,10 @@ import org.axonframework.commandhandling.distributed.DistributedCommandBus;
 import org.axonframework.common.caching.Cache;
 import org.axonframework.common.caching.WeakReferenceCache;
 import org.axonframework.config.EventProcessingConfigurer;
+import org.axonframework.eventhandling.SubscribingEventProcessor;
 import org.axonframework.eventhandling.TrackingEventProcessorConfiguration;
 import org.axonframework.eventsourcing.EventSourcingRepository;
+import org.axonframework.eventsourcing.MultiStreamableMessageSource;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.extensions.springcloud.commandhandling.SpringCloudCommandRouter;
 import org.axonframework.extensions.springcloud.commandhandling.SpringCloudHttpBackupCommandRouter;
@@ -56,6 +58,7 @@ public class AxonConfig {
 //        configurer.usingSubscribingEventProcessors();
     }
 
+
     @Bean
     public CommandRouter springCloudHttpBackupCommandRouter(
             DiscoveryClient discoveryClient,
@@ -72,6 +75,7 @@ public class AxonConfig {
                 .build();
 
     }
+
     @Bean
     @Primary
     public DistributedCommandBus distributedCommandBus(CommandRouter commandRouter,
