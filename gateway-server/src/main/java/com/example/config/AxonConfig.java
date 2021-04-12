@@ -47,19 +47,25 @@ public class AxonConfig {
                 .build();
     }
 
-    //
     @Bean
     public CommandRouter springCloudHttpBackupCommandRouter(
             DiscoveryClient discoveryClient,
             RestTemplate restTemplate,
             Registration localServiceInstance,
             @Value("${axon.distributed.spring-cloud.fallback-url}")
-                    String messageRoutingInformationEndpoint) {
+                    String messageRoutingInformationEndpoint,
+            @Value("${eureka.instance.metadata-map.instance-type}")
+                    String url) {
         return SpringCloudHttpBackupCommandRouter.builder()
                 .discoveryClient(discoveryClient)
                 .routingStrategy(new AnnotationRoutingStrategy())
                 .restTemplate(restTemplate)
                 .localServiceInstance(localServiceInstance)
+                .serviceInstanceFilter(t -> {
+                    boolean b = !t.getMetadata().isEmpty() && null != t.getMetadata().get("instance-type")
+                            && t.getMetadata().get("instance-type").equalsIgnoreCase(url);
+                    return b;
+                })
                 .messageRoutingInformationEndpoint(messageRoutingInformationEndpoint)
                 .build();
 

@@ -24,6 +24,8 @@ eureka:
     serviceUrl:
       defaultZone: http://192.168.1.104:8761/eureka
   instance:
+    metadata-map:
+      instance-type: eda
     preferIpAddress: true
 logging:
   level:
@@ -43,9 +45,9 @@ axon:
     spring-cloud:
       fallback-to-http-get: true
       fallback-url: /message-routing-information
-
       mode: rest
-
+      enable-ignore-listing: true
+      enable-accept-all-commands: true
   serializer:
     general: xstream
     messages: xstream
