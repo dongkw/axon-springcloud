@@ -22,4 +22,8 @@ public class CmdGatewayFactory {
     public static CommandGateway getCommandGateway() {
         return gateway;
     }
+
+    public static void mockCmdGateway(CommandGateway commandGateway) {
+        gateway = commandGateway;
+    }
 }

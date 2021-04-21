@@ -1,16 +1,13 @@
-package com.example;
+package com.example.cucumber.test;
 
 import com.example.aggregate.InstructionAggr;
 import com.example.aggregate.bean.command.CancelledCmd;
 import com.example.aggregate.bean.command.CreateCmd;
 import com.example.aggregate.bean.event.CancelledEvent;
 import com.example.aggregate.bean.event.CreateEvent;
-import com.example.saga.CreateSaga;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.axonframework.test.aggregate.AggregateTestFixture;
-import org.axonframework.test.saga.SagaTestFixture;
 
 import java.util.List;
 import java.util.Map;
@@ -21,10 +18,11 @@ import java.util.Map;
  **/
 public class InstructionTest extends AggrSteps<InstructionAggr> {
 
-    protected SagaSteps<CreateSaga> sagaFixture;
 
     public InstructionTest() {
     }
+
+
 
     @When("^收到命令:$")
     public void 收到命令(Map<String, String> map) throws Exception {

@@ -1,4 +1,4 @@
-package com.example;
+package com.example.cucumber.config;
 
 /**
  * @Author dongkw

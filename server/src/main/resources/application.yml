@@ -2,7 +2,7 @@ spring:
   application:
     name: instruction
   datasource:
-    url: jdbc:mysql://192.168.1.104:3306/axon?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/axon?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: mysql
     driver-class-name: com.mysql.jdbc.Driver
@@ -53,7 +53,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     serviceUrl:
-      defaultZone: http://192.168.1.104:8761/eureka
+      defaultZone: http://loaclhost:8761/eureka
   instance:
     metadata-map:
       instance-type: eda

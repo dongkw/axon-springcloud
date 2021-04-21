@@ -1,13 +1,11 @@
-package com.example;
+package com.example.cucumber.test;
 
-import com.example.aggregate.InstructionAggr;
 import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.axonframework.test.aggregate.FixtureConfiguration;
 import org.axonframework.test.aggregate.ResultValidator;
 import org.axonframework.test.aggregate.TestExecutor;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.List;
 
 /**
  * @Author dongkw

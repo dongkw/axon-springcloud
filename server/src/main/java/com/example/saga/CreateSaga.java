@@ -25,8 +25,12 @@ public class CreateSaga {
 
     private CreateEvent createEvent;
 
-    @Autowired
     private transient CommandGateway commandGateway;
+
+    @Autowired
+    public void setCommandGateway(CommandGateway commandGateway) {
+        this.commandGateway = commandGateway;
+    }
 
     @StartSaga
     @SagaEventHandler(associationProperty = "id")
@@ -36,8 +40,10 @@ public class CreateSaga {
         CmplCmd cmd = new CmplCmd();
         cmd.setId(event.getId());
         commandGateway.send(cmd);
+        log.info("send {}", cmd);
 
     }
+
     @EndSaga
     @SagaEventHandler(associationProperty = "id")
     public void handler(CmplFailEvt evt) {
