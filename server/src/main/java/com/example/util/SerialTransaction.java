@@ -7,7 +7,7 @@ import java.util.Objects;
  * @Date 2021/1/25、4:24 下午
  * 如果后一个事务依赖前一个事务的返回值该怎么办？？？
  **/
-public class SerialTransaction extends TransactionGroup {
+public class SerialTransaction<T extends SagaResult> extends TransactionGroup<T> {
 
 
     int curIndex;
@@ -35,7 +35,7 @@ public class SerialTransaction extends TransactionGroup {
 
     @Override
     public void eventHandler(Object event) {
-        ITransaction transaction = transactions.get(curIndex);
+        ITransaction<T> transaction = transactions.get(curIndex);
         transaction.eventHandler(event);
         if (transaction.getStatus().equals(SagaStatus.SUCCESS)) {
             if (curIndex < transactions.size() - 1) {

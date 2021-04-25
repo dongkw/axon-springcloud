@@ -8,11 +8,11 @@ import java.util.Objects;
  * @Author dongkw
  * @Date 2021/1/25、4:24 下午
  **/
-public class ParallelTransaction extends TransactionGroup {
+public class ParallelTransaction<T extends SagaResult> extends TransactionGroup<T> {
 
 
-    public Map<Class, ITransaction> getMap() {
-        Map<Class, ITransaction> map = new HashMap<>();
+    public Map<Class<?>, ITransaction<T>> getMap() {
+        Map<Class<?>, ITransaction<T>> map = new HashMap<>();
         transactions.forEach(t -> t.getEventRegList().forEach(e -> map.put(e, t)));
         return map;
     }
@@ -43,7 +43,7 @@ public class ParallelTransaction extends TransactionGroup {
 
     @Override
     public void eventHandler(Object event) {
-        ITransaction transaction = getMap().get(event.getClass());
+        ITransaction<T> transaction = getMap().get(event.getClass());
         transaction.eventHandler(event);
         if (transactions.stream().allMatch(t -> Objects.nonNull(t.getStatus()))) {
             if (transactions.stream().anyMatch(t -> Objects.equals(t.getStatus(), SagaStatus.FAIL))) {

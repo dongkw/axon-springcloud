@@ -5,6 +5,7 @@ import com.example.command.CmplRollbackCmd;
 import com.example.event.CmplFailEvt;
 import com.example.event.CmplRollbackEvt;
 import com.example.event.CmplSuccEvt;
+import com.example.saga.InstructionResult;
 import com.example.util.CmdGatewayFactory;
 import com.example.util.SagaStatus;
 import com.example.util.TransactionUnit;
@@ -18,7 +19,7 @@ import java.util.List;
  * @Date 2021/1/26、1:32 下午
  **/
 @Slf4j
-public class CmplTransaction extends TransactionUnit {
+public class CmplTransaction extends TransactionUnit<InstructionResult> {
 
 
     private String id;
@@ -53,8 +54,8 @@ public class CmplTransaction extends TransactionUnit {
     }
 
     @Override
-    public List<Class> getEventRegList() {
-        List<Class> list = new ArrayList<>();
+    public List<Class<?>> getEventRegList() {
+        List<Class<?>> list = new ArrayList<>();
         list.add(CmplSuccEvt.class);
         list.add(CmplFailEvt.class);
         list.add(CmplRollbackEvt.class);
@@ -62,7 +63,7 @@ public class CmplTransaction extends TransactionUnit {
     }
 
     @Override
-    public Object fill(Object cmd) {
-        return cmd;
+    public void setResult(InstructionResult result){
+
     }
 }

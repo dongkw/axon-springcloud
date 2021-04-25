@@ -5,6 +5,7 @@ import com.example.command.VerfRollbackCmd;
 import com.example.event.VerfFailEvt;
 import com.example.event.VerfRollbackEvt;
 import com.example.event.VerfSuccEvt;
+import com.example.saga.InstructionResult;
 import com.example.util.CmdGatewayFactory;
 import com.example.util.SagaStatus;
 import com.example.util.TransactionUnit;
@@ -18,7 +19,7 @@ import java.util.List;
  * @Date 2021/1/26、1:32 下午
  **/
 @Slf4j
-public class VerfTransaction extends TransactionUnit {
+public class VerfTransaction extends TransactionUnit<InstructionResult> {
 
 
     private String id;
@@ -56,8 +57,8 @@ public class VerfTransaction extends TransactionUnit {
     }
 
     @Override
-    public List<Class> getEventRegList() {
-        List<Class> list = new ArrayList<>();
+    public List<Class<?>> getEventRegList() {
+        List<Class<?>> list = new ArrayList<>();
         list.add(VerfSuccEvt.class);
         list.add(VerfFailEvt.class);
         list.add(VerfRollbackEvt.class);
@@ -65,7 +66,7 @@ public class VerfTransaction extends TransactionUnit {
     }
 
     @Override
-    public Object fill(Object cmd) {
-        return cmd;
+    public void setResult(InstructionResult result){
+
     }
 }

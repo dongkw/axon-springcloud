@@ -4,6 +4,7 @@ import com.example.aggregate.bean.command.CancelledCmd;
 import com.example.aggregate.bean.command.FailCmd;
 import com.example.aggregate.bean.event.CancelEvent;
 import com.example.event.*;
+import com.example.saga.InstructionResult;
 import com.example.util.ITransaction;
 import com.example.util.ParallelTransaction;
 import com.example.util.SagaStatus;
@@ -26,7 +27,7 @@ import java.util.Objects;
 @Slf4j
 public class CancelSaga {
 
-    private ITransaction transaction;
+    private ITransaction<InstructionResult> transaction;
 
     @Autowired
     private transient CommandGateway commandGateway;
@@ -37,7 +38,7 @@ public class CancelSaga {
     @SagaEventHandler(associationProperty = "id")
     public void startSaga(CancelEvent event) {
         this.vo = event;
-        ParallelTransaction transaction = new ParallelTransaction();
+        ParallelTransaction<InstructionResult> transaction = new ParallelTransaction<>();
 //        SerialTransaction transaction = new SerialTransaction();
 
         transaction.setTransactions(Arrays.asList(new CmplTransaction(vo.getId()), new VerfTransaction(vo.getId())));
@@ -77,11 +78,12 @@ public class CancelSaga {
 
     private void checkIsFinish(Object evt) {
         log.info("receive:{}", evt);
+        InstructionResult result = new InstructionResult();
         transaction.eventHandler(evt);
         if (Objects.equals(transaction.getStatus(), SagaStatus.SUCCESS)) {
             CancelledCmd cmd = new CancelledCmd();
             cmd.setId(vo.getId());
-            transaction.fill(cmd);
+            transaction.setResult(result);
             commandGateway.send(cmd);
             log.info("end---send:{}", cmd);
             SagaLifecycle.end();
@@ -90,7 +92,7 @@ public class CancelSaga {
 
             FailCmd cmd = new FailCmd();
             cmd.setId(vo.getId());
-            transaction.fill(cmd);
+            transaction.setResult(result);
             commandGateway.send(cmd);
             log.info("end---send:{}", cmd);
             SagaLifecycle.end();
