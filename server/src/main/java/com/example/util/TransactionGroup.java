@@ -22,6 +22,6 @@ public abstract class TransactionGroup<T extends SagaResult> implements ITransac
 
     @Override
     public void setResult(T result) {
-        transactions.forEach(t -> setResult(result));
+        transactions.forEach(t -> t.setResult(result));
     }
 }
