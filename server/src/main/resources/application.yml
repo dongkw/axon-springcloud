@@ -27,14 +27,14 @@ logging:
 axon:
   axonserver:
     enabled: false
-#  eventhandling:
-#    processors:
-#      sub:
-#        mode: subscribing
-#        source: eventBus
-#      track:
-#        mode: tracking
-#          source: eventBus
+  #  eventhandling:
+  #    processors:
+  #      sub:
+  #        mode: subscribing
+  #        source: eventBus
+  #      track:
+  #        mode: tracking
+  #          source: eventBus
   distributed:
     enabled: true
     spring-cloud:
