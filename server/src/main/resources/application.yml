@@ -16,7 +16,7 @@ spring:
     generate-ddl: true
 
 server:
-  port: 8080
+  port: 8070
 
 logging:
   level:
@@ -43,6 +43,7 @@ axon:
       mode: rest
       enable-ignore-listing: true
       enable-accept-all-commands: true
+      rest-mode-url: /member-capabilities
   serializer:
     general: xstream
     messages: xstream

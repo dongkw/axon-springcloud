@@ -48,6 +48,7 @@ axon:
       mode: rest
       enable-ignore-listing: true
       enable-accept-all-commands: true
+      rest-mode-url: /member-capabilities
   serializer:
     general: xstream
     messages: xstream
