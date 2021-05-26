@@ -36,6 +36,7 @@
         <module>server</module>
         <module>gateway-server</module>
         <module>eureka</module>
+        <module>instruction</module>
     </modules>
 
     <dependencies>

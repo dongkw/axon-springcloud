@@ -1,9 +1,9 @@
 package com.example.controller;
 
-import com.example.aggregate.bean.command.CreateCmd;
-import com.example.aggregate.bean.event.CancelEvent;
-import com.example.aggregate.bean.event.CancelledEvent;
-import com.example.aggregate.bean.event.FailEvent;
+import com.example.domain.aggregate.bean.command.CreateCmd;
+import com.example.domain.aggregate.bean.event.CancelEvent;
+import com.example.domain.aggregate.bean.event.CancelledEvent;
+import com.example.domain.aggregate.bean.event.FailEvent;
 import com.example.event.CmplFailEvt;
 import com.example.event.CmplSuccEvt;
 import com.example.event.TestEvent;

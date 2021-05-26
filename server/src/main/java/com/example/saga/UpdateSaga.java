@@ -1,8 +1,8 @@
 package com.example.saga;
 
-import com.example.aggregate.bean.command.FailCmd;
-import com.example.aggregate.bean.command.UpdateConfirmCmd;
-import com.example.aggregate.bean.event.UpdateEvent;
+import com.example.domain.aggregate.bean.command.FailCmd;
+import com.example.domain.aggregate.bean.command.UpdateConfirmCmd;
+import com.example.domain.aggregate.bean.event.UpdateEvent;
 import com.example.command.CmplCmd;
 import com.example.command.CmplRollbackCmd;
 import com.example.command.VerfCmd;

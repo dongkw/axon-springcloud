@@ -1,12 +1,12 @@
 package com.example.unit.test;
 
-import com.example.aggregate.InstructionAggr;
-import com.example.aggregate.bean.command.CancelledCmd;
-import com.example.aggregate.bean.command.ConfirmCmd;
-import com.example.aggregate.bean.command.CreateCmd;
-import com.example.aggregate.bean.event.CancelEvent;
-import com.example.aggregate.bean.event.CancelledEvent;
-import com.example.aggregate.bean.event.CreateEvent;
+import com.example.domain.aggregate.InstructionAggr;
+import com.example.domain.aggregate.bean.command.CancelledCmd;
+import com.example.domain.aggregate.bean.command.ConfirmCmd;
+import com.example.domain.aggregate.bean.command.CreateCmd;
+import com.example.domain.aggregate.bean.event.CancelEvent;
+import com.example.domain.aggregate.bean.event.CancelledEvent;
+import com.example.domain.aggregate.bean.event.CreateEvent;
 import com.example.command.CmplCmd;
 import com.example.command.VerfCmd;
 import com.example.event.CmplSuccEvt;

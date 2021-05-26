@@ -1,8 +1,8 @@
 package com.example.cucumber.test;
 
-import com.example.aggregate.bean.command.ConfirmCmd;
-import com.example.aggregate.bean.event.CancelEvent;
-import com.example.aggregate.bean.event.CreateEvent;
+import com.example.domain.aggregate.bean.command.ConfirmCmd;
+import com.example.domain.aggregate.bean.event.CancelEvent;
+import com.example.domain.aggregate.bean.event.CreateEvent;
 import com.example.command.CmplCmd;
 import com.example.command.VerfCmd;
 import com.example.event.CmplSuccEvt;
