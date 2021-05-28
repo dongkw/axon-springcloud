@@ -8,6 +8,7 @@ import com.example.event.CmplFailEvt;
 import com.example.event.CmplSuccEvt;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.config.ProcessingGroup;
 import org.axonframework.modelling.saga.EndSaga;
 import org.axonframework.modelling.saga.SagaEventHandler;
 import org.axonframework.modelling.saga.SagaLifecycle;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  **/
 @Saga
 @Slf4j
+@ProcessingGroup(value = "saga-create")
 public class CreateSaga {
 
     private CreateEvent createEvent;

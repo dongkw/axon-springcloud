@@ -4,8 +4,6 @@ import com.example.domain.aggregate.bean.command.CreateCmd;
 import com.example.domain.aggregate.bean.event.CancelEvent;
 import com.example.domain.aggregate.bean.event.CancelledEvent;
 import com.example.domain.aggregate.bean.event.FailEvent;
-import com.example.event.CmplFailEvt;
-import com.example.event.CmplSuccEvt;
 import com.example.event.TestEvent;
 import com.example.util.SyncController;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 /**
  * @Author dongkw
@@ -35,21 +35,22 @@ public class Controller extends SyncController {
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody CreateCmd cmd) {
+        cmd.setId(UUID.randomUUID().toString());
         commandGateway.send(cmd);
-        Object result=waitResponse(cmd.getId());
-        return ResponseEntity.ok(result);
+//        Object result=waitResponse(cmd.getId());
+        return ResponseEntity.ok().build();
     }
-    @EventHandler
-    public void handle(CmplSuccEvt event) {
-        log.info("return {}",event);
-        syncResponse(event.getId(), event);
-    }
-
-    @EventHandler
-    public void handle(CmplFailEvt event) {
-        log.info("return {}",event);
-        syncResponse(event.getId(), event);
-    }
+//    @EventHandler
+//    public void handle(CmplSuccEvt event) {
+//        log.info("return {}",event);
+//        syncResponse(event.getId(), event);
+//    }
+//
+//    @EventHandler
+//    public void handle(CmplFailEvt event) {
+//        log.info("return {}",event);
+//        syncResponse(event.getId(), event);
+//    }
 
 
     @PostMapping("/update")
@@ -82,7 +83,7 @@ public class Controller extends SyncController {
     }
 
     @GetMapping("/command")
-    public String cmd(){
+    public String cmd() {
         return "success";
     }
 

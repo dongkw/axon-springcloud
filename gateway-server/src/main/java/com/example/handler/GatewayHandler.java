@@ -7,6 +7,7 @@ import com.example.command.VerfRollbackCmd;
 import com.example.event.*;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventhandling.gateway.EventGateway;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
  **/
 @Slf4j
 @Component
+@ProcessingGroup(value = "kafka-group")
 public class GatewayHandler {
 
     @Autowired
