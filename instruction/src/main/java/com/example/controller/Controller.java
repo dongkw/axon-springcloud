@@ -1,8 +1,9 @@
 package com.example.controller;
 
-import com.example.bean.cmd.BondCreateCmd;
-import com.example.bean.cmd.PrCreateCmd;
-import com.example.bean.cmd.UpdateCmd;
+
+import com.example.bean.BondCreateCmd;
+import com.example.bean.PrCreateCmd;
+import com.example.bean.UpdateCmd;
 import com.example.bean.vo.Bond;
 import com.example.bean.vo.Pledge;
 import org.axonframework.commandhandling.gateway.CommandGateway;

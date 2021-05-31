@@ -1,18 +1,13 @@
 package com.example.domain.aggregate;
 
 import com.example.InstructionAggregate;
-import com.example.bean.cmd.BondCreateCmd;
-import com.example.bean.cmd.BondUpdateCmd;
-import com.example.bean.cmd.CancelCmd;
-import com.example.bean.evt.BondCreateEvt;
-import com.example.bean.evt.BondUpdateEvt;
-import com.example.bean.evt.CancelEvt;
+import com.example.bean.*;
 import com.example.bean.vo.Bond;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
-import org.springframework.beans.BeanUtils;
 
 /**
  * @Author dongkw
@@ -22,44 +17,50 @@ import org.springframework.beans.BeanUtils;
 @NoArgsConstructor
 @Slf4j
 public class BondAggr extends InstructionAggregate<Bond> {
-
     @CommandHandler
     public BondAggr(BondCreateCmd cmd) {
-        log.info("bond");
-
-//        this.status.create(() -> {
-//            BondCreateEvt evt = new BondCreateEvt();
-//            BeanUtils.copyProperties(cmd, evt);
-//            return evt;
-//        });
-//
-//        this.status.handler(cmd, this, (t, aggr) -> {
-//            BondCreateEvt evt = new BondCreateEvt();
-//            BeanUtils.copyProperties(t, evt);
-//            return evt;
-//        });
-        this.status.handler(cmd, this, t -> {
-            t = (BondCreateEvt) t;
-        });
+        this.status.handler(this, cmd);
     }
 
-    @CommandHandler
-    protected void handler(BondUpdateCmd cmd) {
-        log.info("bond");
-        this.status.update(() -> {
-            BondUpdateEvt evt = new BondUpdateEvt();
-            BeanUtils.copyProperties(cmd, evt);
-            return evt;
-        });
+
+    @Override
+    public void create(CreateCmd<Bond> cmd) {
+        AggregateLifecycle.apply(new BondCreateEvt(cmd.getInstruction()));
     }
 
-    @CommandHandler
-    protected void cancel(CancelCmd<Bond> cmd) {
-        log.info("bond");
-        this.status.cancel(() -> {
-            CancelEvt<Bond> evt = new CancelEvt<>();
-            BeanUtils.copyProperties(cmd, evt);
-            return evt;
-        });
+    @Override
+    public void update(UpdateCmd<Bond> cmd) {
+        AggregateLifecycle.apply(new BondUpdateEvt(cmd.getInstruction()));
+    }
+
+    @Override
+    public void cancel(CancelCmd<Bond> cmd) {
+        AggregateLifecycle.apply(new BondCancelEvt(cmd.getInstruction()));
+    }
+
+    @Override
+    public void approve(ApproveCmd<Bond> cmd) {
+        AggregateLifecycle.apply(new BondApproveEvt(cmd.getInstruction()));
+    }
+
+    @Override
+    public void distribute(DistributeCmd<Bond> cmd) {
+        AggregateLifecycle.apply(new BondDistributeEvt(cmd.getInstruction()));
+    }
+
+    @Override
+    public void cancelled(CancelledCmd cmd) {
+        AggregateLifecycle.apply(new BondCancelledEvt(cmd.getAggregateId()));
+    }
+
+    @Override
+    public void created(CreatedCmd cmd) {
+        AggregateLifecycle.apply(new BondCreatedEvt(cmd.getAggregateId()));
+    }
+
+    @Override
+    public void updated(UpdatedCmd cmd) {
+        AggregateLifecycle.apply(new BondUpdatedEvt(cmd.getAggregateId()));
+
     }
 }

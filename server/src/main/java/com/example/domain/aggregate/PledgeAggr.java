@@ -1,16 +1,12 @@
 package com.example.domain.aggregate;
 
 import com.example.InstructionAggregate;
-import com.example.bean.cmd.PrCreateCmd;
-import com.example.bean.cmd.UpdateCmd;
-import com.example.bean.evt.PrCreateEvt;
-import com.example.bean.evt.PrUpdateEvt;
+import com.example.bean.*;
 import com.example.bean.vo.Pledge;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.spring.stereotype.Aggregate;
-import org.springframework.beans.BeanUtils;
 
 /**
  * @Author dongkw
@@ -23,22 +19,47 @@ public class PledgeAggr extends InstructionAggregate<Pledge> {
 
     @CommandHandler
     public PledgeAggr(PrCreateCmd cmd) {
-        log.info("pledge");
-        this.status.create(() -> {
-            PrCreateEvt evt = new PrCreateEvt();
-            BeanUtils.copyProperties(cmd, evt);
-            return evt;
-        });
+        this.status.handler(this, cmd);
     }
 
-    @CommandHandler
-    protected void update(UpdateCmd<Pledge> cmd) {
-        log.info("pledge");
-        this.status.update(() -> {
-            PrUpdateEvt evt = new PrUpdateEvt();
-            BeanUtils.copyProperties(cmd, evt);
-            return evt;
-        });
+
+    @Override
+    public void create(CreateCmd<Pledge> cmd) {
+
     }
 
+    @Override
+    public void update(UpdateCmd<Pledge> cmd) {
+
+    }
+
+    @Override
+    public void cancel(CancelCmd<Pledge> cmd) {
+
+    }
+
+    @Override
+    public void approve(ApproveCmd<Pledge> cmd) {
+
+    }
+
+    @Override
+    public void distribute(DistributeCmd<Pledge> cmd) {
+
+    }
+
+    @Override
+    public void cancelled(CancelledCmd cmd) {
+
+    }
+
+    @Override
+    public void created(CreatedCmd cmd) {
+
+    }
+
+    @Override
+    public void updated(UpdatedCmd cmd) {
+
+    }
 }

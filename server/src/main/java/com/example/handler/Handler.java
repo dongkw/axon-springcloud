@@ -1,7 +1,5 @@
 package com.example.handler;
 
-import com.example.domain.aggregate.bean.command.AprvPassCmd;
-import com.example.domain.aggregate.bean.command.DistributeCmd;
 import com.example.event.AprvPassApiEvent;
 import com.example.event.DistributeApiEvent;
 import org.axonframework.commandhandling.gateway.CommandGateway;

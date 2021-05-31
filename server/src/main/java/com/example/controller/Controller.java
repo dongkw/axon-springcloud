@@ -1,14 +1,12 @@
 package com.example.controller;
 
+
+import com.example.domain.aggregate.bean.CancelEvent;
 import com.example.domain.aggregate.bean.command.CreateCmd;
-import com.example.domain.aggregate.bean.event.CancelEvent;
-import com.example.domain.aggregate.bean.event.CancelledEvent;
-import com.example.domain.aggregate.bean.event.FailEvent;
 import com.example.event.TestEvent;
 import com.example.util.SyncController;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventhandling.gateway.EventGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,17 +38,6 @@ public class Controller extends SyncController {
 //        Object result=waitResponse(cmd.getId());
         return ResponseEntity.ok().build();
     }
-//    @EventHandler
-//    public void handle(CmplSuccEvt event) {
-//        log.info("return {}",event);
-//        syncResponse(event.getId(), event);
-//    }
-//
-//    @EventHandler
-//    public void handle(CmplFailEvt event) {
-//        log.info("return {}",event);
-//        syncResponse(event.getId(), event);
-//    }
 
 
     @PostMapping("/update")
@@ -65,19 +52,14 @@ public class Controller extends SyncController {
         return ResponseEntity.ok(result);
     }
 
-    @EventHandler
-    public void handle(CancelledEvent event) {
-        syncResponse(event.getId(), event);
-    }
-
-    @EventHandler
-    public void handle(FailEvent event) {
-        syncResponse(event.getId(), event);
-    }
-
-
     @PostMapping("/test")
     public ResponseEntity test(@RequestBody TestEvent testEvent) {
+
+        CreateCmd createCmd = new CreateCmd();
+
+
+        createCmd.setId("111");
+        createCmd.setData("ddd");
         eventGateway.publish(testEvent);
         return ResponseEntity.ok().build();
     }

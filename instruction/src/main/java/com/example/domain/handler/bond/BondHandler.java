@@ -1,7 +1,8 @@
 package com.example.domain.handler.bond;
 
-import com.example.bean.evt.BondCreateEvt;
-import com.example.bean.evt.BondUpdateEvt;
+
+import com.example.bean.BondCreateEvt;
+import com.example.bean.BondUpdateEvt;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;

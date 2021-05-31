@@ -1,5 +1,8 @@
 package com.example.status;
 
+import com.example.InstructionAggregate;
+import com.example.InstructionStatus;
+import com.example.bean.CancelledCmd;
 import com.example.bean.vo.Instruction;
 import lombok.extern.slf4j.Slf4j;
 
@@ -10,4 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CancelStatus<T extends Instruction> extends InstructionStatus<T> {
 
+    public void handler(InstructionAggregate<T> aggregate, CancelledCmd cmd) {
+        aggregate.cancelled(cmd);
+    }
 }

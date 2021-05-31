@@ -5,15 +5,14 @@ package com.example.domain.aggregate;
  * @Date 2021/1/25、10:51 上午
  **/
 
+import com.example.domain.aggregate.bean.CancelledEvent;
+import com.example.domain.aggregate.bean.ConfirmEvent;
+import com.example.domain.aggregate.bean.CreateEvent;
+import com.example.domain.aggregate.bean.FailEvent;
 import com.example.domain.aggregate.bean.command.CancelledCmd;
 import com.example.domain.aggregate.bean.command.ConfirmCmd;
 import com.example.domain.aggregate.bean.command.CreateCmd;
 import com.example.domain.aggregate.bean.command.FailCmd;
-import com.example.domain.aggregate.bean.event.CancelledEvent;
-import com.example.domain.aggregate.bean.event.ConfirmEvent;
-import com.example.domain.aggregate.bean.event.CreateEvent;
-import com.example.domain.aggregate.bean.event.FailEvent;
-import com.example.domain.aggregate.bean.status.Status;
 import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -30,14 +29,10 @@ public class InstructionAggr {
 
     private String data;
 
-    private Status status;
-
-
     @CommandHandler
     public InstructionAggr(CreateCmd cmd) {
-        CreateEvent event = new CreateEvent();
-        event.setId(cmd.getId());
-        event.setData(cmd.getData());
+        CreateEvent event = new CreateEvent(cmd);
+//        CreateEvent event = new CreateEvent(cmd.getId(), cmd.getData());
         AggregateLifecycle.apply(event);
     }
 
@@ -49,9 +44,7 @@ public class InstructionAggr {
 
     @CommandHandler
     public void handler(CancelledCmd cmd) {
-        CancelledEvent event = new CancelledEvent();
-        event.setId(cmd.getId());
-        event.setData(cmd.getData());
+        CancelledEvent event = new CancelledEvent(cmd.getId(), cmd.getData());
         AggregateLifecycle.apply(event);
     }
 
@@ -62,8 +55,7 @@ public class InstructionAggr {
 
     @CommandHandler
     public void handler(FailCmd cmd) {
-        CancelledEvent event = new CancelledEvent();
-        event.setId(cmd.getId());
+        CancelledEvent event = new CancelledEvent(cmd.getId(), data);
         AggregateLifecycle.apply(event);
     }
 
@@ -74,9 +66,7 @@ public class InstructionAggr {
 
     @CommandHandler
     public void handler(ConfirmCmd cmd) {
-        ConfirmEvent event = new ConfirmEvent();
-        event.setId(cmd.getId());
-        event.setData(cmd.getData());
+        ConfirmEvent event = new ConfirmEvent(cmd.getId(), cmd.getData());
         AggregateLifecycle.apply(event);
     }
 

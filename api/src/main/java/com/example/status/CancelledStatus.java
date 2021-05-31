@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
  * @Date 2021/5/8、1:26 下午
  **/
 @Slf4j
-public class DistributeStatus<T extends Instruction> extends InstructionStatus<T> {
-
+public class CancelledStatus<T extends Instruction> extends InstructionStatus<T> {
 
 }

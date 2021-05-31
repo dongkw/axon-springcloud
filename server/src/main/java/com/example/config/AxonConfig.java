@@ -1,6 +1,7 @@
 package com.example.config;
 
 import com.example.domain.aggregate.InstructionAggr;
+import com.example.domain.aggregate.PledgeAggr;
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.distributed.AnnotationRoutingStrategy;
 import org.axonframework.commandhandling.distributed.CommandBusConnector;
@@ -47,13 +48,13 @@ public class AxonConfig {
     public Cache cache() {
         return new WeakReferenceCache();
     }
-//    @Bean
-//    public EventSourcingRepository<PledgeAggr> pledgeRepository(EventStore eventStore, Cache cache) {
-//        return EventSourcingRepository.builder(PledgeAggr.class)
-//                .cache(cache)
-//                .eventStore(eventStore)
-//                .build();
-//    }
+    @Bean
+    public EventSourcingRepository<PledgeAggr> pledgeRepository(EventStore eventStore, Cache cache) {
+        return EventSourcingRepository.builder(PledgeAggr.class)
+                .cache(cache)
+                .eventStore(eventStore)
+                .build();
+    }
 
     @Autowired
     public void config(EventProcessingConfigurer configurer) {

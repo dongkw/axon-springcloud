@@ -1,7 +1,5 @@
 package com.example.saga.cancel;
 
-import com.example.domain.aggregate.bean.command.CancelledCmd;
-import com.example.domain.aggregate.bean.command.FailCmd;
 import com.example.domain.aggregate.bean.event.CancelEvent;
 import com.example.event.*;
 import com.example.saga.InstructionResult;
