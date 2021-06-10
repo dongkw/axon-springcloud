@@ -8,9 +8,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="server" />
+        <module name="util" />
         <module name="eureka" />
         <module name="instruction" />
         <module name="gateway-server" />
+        <module name="istr" />
         <module name="gateway-api" />
         <module name="api" />
         <module name="Eureka" />
@@ -25,7 +27,11 @@
       <module name="gateway-api" options="-parameters" />
       <module name="gateway-server" options="-parameters" />
       <module name="instruction" options="-parameters" />
+      <module name="istr" options="-parameters" />
       <module name="server" options="-parameters" />
+      <module name="util" options="-parameters" />
+      <module name="version1" options="" />
+      <module name="version2" options="" />
     </option>
   </component>
 </project>
