@@ -21,7 +21,6 @@ public class BondService extends Factory implements IService<Bond> {
     public CreateCmd buildCreateCmd(Bond basic) {
         return new CreateCmd(UUID.randomUUID().toString(), basic);
     }
-
     @Override
     public CreateEvt buildCreateEvt(String aggrId, Bond basic) {
         return new CreateEvt(aggrId, basic);

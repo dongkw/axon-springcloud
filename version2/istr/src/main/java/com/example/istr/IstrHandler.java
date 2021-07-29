@@ -7,6 +7,7 @@ import com.example.istr.model.IssueCmd;
 import com.example.basic.model.*;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.modelling.command.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,18 +18,14 @@ public class IstrHandler {
     private CommandGateway commandGateway;
 
     @EventHandler
-    public void handler(CreateEvt evt) {
+    public void handler(CreateConfirmEvt evt) {
         commandGateway.send(new IssueCmd(evt.getIstr().getInstructionId()));
     }
 
-    @EventHandler
-    public void handler(CreateConfirmEvt evt) {
-        commandGateway.send(new ApprovalCmd(evt.getIstr().getInstructionId()));
-    }
 
     @EventHandler
     public void handler(UpdateConfirmEvt evt) {
-        commandGateway.send(new ApprovalCmd(evt.getIstr().getInstructionId()));
+        commandGateway.send(new IssueCmd(evt.getIstr().getInstructionId()));
     }
 
     @EventHandler
@@ -36,8 +33,12 @@ public class IstrHandler {
         commandGateway.send(new FailCmd(evt.getIstr().getInstructionId()));
     }
 
+
     @EventHandler
     public void handler(CreateFailEvt evt) {
         commandGateway.send(new FailCmd(evt.getIstr().getInstructionId()));
     }
+
+
+
 }
