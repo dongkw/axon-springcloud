@@ -2,7 +2,6 @@ package com.example.config;
 
 import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -13,15 +12,9 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
-/**
- * @Author dongkw
- * @Date 2021/1/25、1:57 下午
- **/
 @EnableSwagger2
 @Configuration
-@ComponentScan(basePackages = {"com.example.controller"})
 public class SwaggerConfig {
-
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)

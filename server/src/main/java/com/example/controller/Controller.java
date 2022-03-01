@@ -1,6 +1,7 @@
 package com.example.controller;
 
 
+import com.example.config.TrackingEventProcessorService;
 import com.example.domain.aggregate.bean.CancelEvent;
 import com.example.domain.aggregate.bean.command.CreateCmd;
 import com.example.event.TestEvent;
@@ -10,10 +11,7 @@ import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.gateway.EventGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -30,6 +28,9 @@ public class Controller extends SyncController {
 
     @Autowired
     private CommandGateway commandGateway;
+
+    @Autowired
+    public TrackingEventProcessorService trackingEventProcessorService;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody CreateCmd cmd) {
@@ -69,4 +70,9 @@ public class Controller extends SyncController {
         return "success";
     }
 
+    @GetMapping("replay")
+    public ResponseEntity replay(@RequestParam("name") String name, @RequestParam("index") Long index) {
+        trackingEventProcessorService.replay(name, index);
+        return ResponseEntity.ok().build();
+    }
 }

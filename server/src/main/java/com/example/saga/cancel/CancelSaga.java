@@ -1,6 +1,8 @@
 package com.example.saga.cancel;
 
-import com.example.domain.aggregate.bean.event.CancelEvent;
+import com.example.bean.CancelledCmd;
+import com.example.domain.aggregate.bean.CancelEvent;
+import com.example.domain.aggregate.bean.command.FailCmd;
 import com.example.event.*;
 import com.example.saga.InstructionResult;
 import com.example.util.ITransaction;
@@ -79,8 +81,8 @@ public class CancelSaga {
         InstructionResult result = new InstructionResult();
         transaction.eventHandler(evt);
         if (Objects.equals(transaction.getStatus(), SagaStatus.SUCCESS)) {
-            CancelledCmd cmd = new CancelledCmd();
-            cmd.setId(vo.getId());
+            CancelledCmd cmd = new CancelledCmd(vo.getId());
+//            cmd.setId(vo.getId());
             transaction.setResult(result);
             commandGateway.send(cmd);
             log.info("end---send:{}", cmd);
@@ -88,8 +90,7 @@ public class CancelSaga {
 
         } else if (Objects.equals(transaction.getStatus(), SagaStatus.FAIL)) {
 
-            FailCmd cmd = new FailCmd();
-            cmd.setId(vo.getId());
+            FailCmd cmd = new FailCmd(vo.getId());
             transaction.setResult(result);
             commandGateway.send(cmd);
             log.info("end---send:{}", cmd);
