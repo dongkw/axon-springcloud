@@ -1,14 +1,13 @@
-package com.example.handler;
+package com.example.handler1;
 
 import com.example.command.CmplCmd;
 import com.example.command.CmplRollbackCmd;
 import com.example.command.VerfCmd;
 import com.example.command.VerfRollbackCmd;
+import com.example.config.TrackingEventProcessorService;
 import com.example.event.*;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
-import org.axonframework.config.ProcessingGroup;
-import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventhandling.gateway.EventGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,12 +18,13 @@ import org.springframework.stereotype.Component;
  **/
 @Slf4j
 @Component
-@ProcessingGroup(value = "kafka-group")
 public class GatewayHandler {
 
     @Autowired
     private EventGateway eventGateway;
 
+    @Autowired
+    public TrackingEventProcessorService trackingEventProcessorService;
 
     @CommandHandler
     public void handler(VerfCmd cmd) {
@@ -76,9 +76,4 @@ public class GatewayHandler {
         log.debug("send {}", evt);
     }
 
-
-    @EventHandler
-    public void on(TestEvent event) {
-        log.info("receive:{}", event);
-    }
 }

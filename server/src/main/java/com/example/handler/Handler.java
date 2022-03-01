@@ -1,5 +1,7 @@
 package com.example.handler;
 
+import com.example.bean.DistributeCmd;
+import com.example.domain.aggregate.bean.command.AprvPassCmd;
 import com.example.event.AprvPassApiEvent;
 import com.example.event.DistributeApiEvent;
 import org.axonframework.commandhandling.gateway.CommandGateway;
@@ -19,15 +21,14 @@ public class Handler {
 
     @EventHandler
     public void handler(AprvPassApiEvent evt) {
-        AprvPassCmd cmd = new AprvPassCmd();
-        cmd.setId(evt.getId());
+        AprvPassCmd cmd = new AprvPassCmd(evt.getId());
         commandGateway.send(cmd);
     }
 
     @EventHandler
     public void handler(DistributeApiEvent evt) {
         DistributeCmd cmd = new DistributeCmd();
-        cmd.setId(evt.getId());
+        cmd.setAggregateId(evt.getId());
         commandGateway.send(cmd);
     }
 }

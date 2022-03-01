@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class Instruction {
     @ApiModelProperty(value = "指令编号", required = true, position = 1)
-    private String instructionID;
+    public String instructionID;
     @ApiModelProperty(value = "指令价格", required = true, position = 8)
     private String price;
 

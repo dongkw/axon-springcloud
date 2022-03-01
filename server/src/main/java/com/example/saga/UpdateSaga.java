@@ -1,10 +1,12 @@
 package com.example.saga;
 
-import com.example.domain.aggregate.bean.event.UpdateEvent;
+import com.example.bean.UpdatedCmd;
 import com.example.command.CmplCmd;
 import com.example.command.CmplRollbackCmd;
 import com.example.command.VerfCmd;
 import com.example.command.VerfRollbackCmd;
+import com.example.domain.aggregate.bean.UpdateEvent;
+import com.example.domain.aggregate.bean.command.FailCmd;
 import com.example.event.*;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.modelling.saga.SagaEventHandler;
@@ -79,8 +81,7 @@ public class UpdateSaga {
     private void end() {
         if (cmplFlag != null && verfFlag != null) {
             if (cmplFlag && verfFlag) {
-                UpdateConfirmCmd cmd = new UpdateConfirmCmd();
-                cmd.setId(this.vo.getId());
+                UpdatedCmd cmd = new UpdatedCmd(this.vo.getId());
                 commandGateway.send(cmd);
             } else if (cmplFlag && !verfFlag) {
                 CmplRollbackCmd cmd = new CmplRollbackCmd();
@@ -91,8 +92,7 @@ public class UpdateSaga {
                 cmd.setId(this.vo.getId());
                 commandGateway.send(cmd);
             } else if (!cmplFlag && !verfFlag) {
-                FailCmd cmd = new FailCmd();
-                cmd.setId(this.vo.getId());
+                FailCmd cmd = new FailCmd(this.vo.getId());
                 commandGateway.send(cmd);
             }
         }

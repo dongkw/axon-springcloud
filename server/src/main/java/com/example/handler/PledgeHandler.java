@@ -1,6 +1,6 @@
 package com.example.handler;
 
-import com.example.bean.evt.CreateEvt;
+import com.example.bean.CreateEvt;
 import com.example.bean.vo.Pledge;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.eventhandling.EventHandler;

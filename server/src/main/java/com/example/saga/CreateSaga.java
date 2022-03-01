@@ -1,7 +1,9 @@
 package com.example.saga;
 
-import com.example.domain.aggregate.bean.event.CreateEvent;
 import com.example.command.CmplCmd;
+import com.example.domain.aggregate.bean.CreateEvent;
+import com.example.domain.aggregate.bean.command.ConfirmCmd;
+import com.example.domain.aggregate.bean.command.FailCmd;
 import com.example.event.CmplFailEvt;
 import com.example.event.CmplSuccEvt;
 import lombok.extern.slf4j.Slf4j;
@@ -48,8 +50,7 @@ public class CreateSaga {
     @SagaEventHandler(associationProperty = "id")
     public void handler(CmplFailEvt evt) {
         log.info("saga fail");
-        FailCmd cmd = new FailCmd();
-        cmd.setId(this.createEvent.getId());
+        FailCmd cmd = new FailCmd(this.createEvent.getId());
         commandGateway.send(cmd);
     }
 
@@ -57,8 +58,7 @@ public class CreateSaga {
     @SagaEventHandler(associationProperty = "id")
     public void handler(CmplSuccEvt evt) {
         log.info("saga success");
-        ConfirmCmd cmd = new ConfirmCmd();
-        cmd.setId(evt.getId());
+        ConfirmCmd cmd = new ConfirmCmd(evt.getId(),this.createEvent.getData());
         commandGateway.send(cmd);
         SagaLifecycle.end();
     }
