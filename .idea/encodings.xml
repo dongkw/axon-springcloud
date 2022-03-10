@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/eureka/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/version1/api/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/version1/gateway-api/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/version1/gateway-server/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/version1/gateway-server/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/version1/instruction/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/version1/server/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/version1/server/src/main/kotlin" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/version2/istr/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/version2/util/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gateway-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gateway-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/instruction/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server/src/main/kotlin" charset="UTF-8" />
   </component>
 </project>

@@ -8,16 +8,20 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="server" />
-        <module name="util" />
         <module name="eureka" />
         <module name="instruction" />
         <module name="gateway-server" />
-        <module name="istr" />
         <module name="gateway-api" />
         <module name="api" />
         <module name="Eureka" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="istr" target="1.8" />
+      <module name="util" target="1.8" />
+      <module name="version1" target="1.8" />
+      <module name="version2" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
